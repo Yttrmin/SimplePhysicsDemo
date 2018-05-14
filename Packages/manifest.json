@@ -6,7 +6,8 @@
     "com.unity.analytics": "exclude",
     "com.unity.package-manager-ui": "1.8.2",
     "com.unity.collections":"0.0.8",
-    "com.unity.mathematics":"0.0.7"
+    "com.unity.mathematics":"0.0.7",
+    "com.unity.entities": "0.0.12-preview.1"
   },
   "registry": "https://staging-packages.unity.com"
 }
