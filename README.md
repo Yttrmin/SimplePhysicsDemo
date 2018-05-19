@@ -1,3 +1,14 @@
+# ECS-ified SimplePhysics Demo
+This is my attempt at ECS-ifying SimplePhysics Demo with virtually no prior knowledge about ECS.
+* SimplePhysics Bootstrap - Creates the archetype used when instantiating physics objects.
+* Physics Spawner System - A regular, non-jobified, `ComponentSystem` that creates batches of objects every update. 
+* Gravity System - A Burst-optimized `JobComponentSystem` that applies a gravitational force to objects. Ignores sleeping objects.
+* Raycast Collision System - A Burst-optimized `JobComponentSystem` that schedules three jobs. One populates an array of `RaycastCommand`s (ignoring sleeping objects), another performs the raycasts, and the last assigns the results onto an object's `CollisionHit` component.
+* Integrate System - A Burst-optimized `JobComponentSystem` that updates an object's position based on its velocity and raycast collision result.
+* Collision Response System - A Burst-optimized `JobComponentSystem` that, for all collisions, either reflects the velocity or increments the sleep counter.
+* Sleep System - A Burst-optimized `JobComponentSystem` that increments objects' sleep counters and removes any that exceed a certain amount. Uses a `BarrierSystem`'s command buffer to perform the removals.
+* Math Extension Methods - `Vector3.Angle` is implemented here using Unity.Mathematics. The existing implementation can potentially access static fields on `Vector3`, which the Burst compiler does not currently allow.
+# Original Readme below
 # SimplePhysics Demo    <a href='https://ko-fi.com/A08215TT' target='_blank'><img height='46' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> <a href='https://www.patreon.com/bePatron?u=7061709' target='_blank'><img height='46' style='border:0px;height:46px;' src='https://c5.patreon.com/external/logo/become_a_patron_button@2x.png' border='0' alt='Become a Patron!' /></a>
 SimplePhysics is a Unity 2018.1 demo showcasing a custom physics system which has all of its processing via the new Unity Jobs system.
 ![demo gif - boxes flying everywhere!](/Docs/phys.gif)
